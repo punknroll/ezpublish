@@ -252,7 +252,8 @@ class eZSSLZone
         if ( $sslZoneRedirectionURL ) // if a redirection URL is found
         {
             eZDebugSetting::writeDebug( 'kernel-ssl-zone', "redirecting to [$sslZoneRedirectionURL]" );
-            eZHTTPTool::redirect( $sslZoneRedirectionURL, array(), false, false );
+            $status = $ini->hasVariable( 'SSLZoneSettings', 'RedirectStatus' ) ? $ini->variable( 'SSLZoneSettings', 'RedirectStatus' ) : false ;
+            eZHTTPTool::redirect( $sslZoneRedirectionURL, array(), $status, false );
             eZExecution::cleanExit();
         }
     }
